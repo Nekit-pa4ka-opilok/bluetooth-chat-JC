@@ -12,11 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BluetoothChat">
         <activity
-            android:name=".View.Screens.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".View.Screens.DownloadsActivity"
+            android:name=".View.Screens.SettingsActivity"
             android:exported="false"
+            android:label="@string/title_activity_settings"
             android:theme="@style/Theme.BluetoothChat" />
         <activity
             android:name=".MainActivity"
