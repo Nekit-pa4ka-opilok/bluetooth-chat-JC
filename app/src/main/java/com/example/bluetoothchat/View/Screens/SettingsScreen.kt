@@ -16,6 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.sp
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreen() {
+    val showAboutDialog = remember { mutableStateOf(false) }
     Surface(
         color = Color(0xFF6A6D7A),
         modifier = Modifier.fillMaxSize()
@@ -62,12 +65,6 @@ fun SettingsScreen() {
                     checked = true,
                     onCheckedChange = { }
                 )
-                SettingsItem(
-                    icon = Icons.Default.Visibility,
-                    title = "Приватность",
-                    subtitle = "Кто может меня найти",
-                    onClick = { }
-                )
             }
 
             // === Внешний вид ===
@@ -75,10 +72,7 @@ fun SettingsScreen() {
                 SettingsItem(
                     icon = Icons.Default.DarkMode,
                     title = "Тёмная тема",
-                    subtitle = "Включена всегда",
-                    showSwitch = true,
-                    checked = true,
-                    onCheckedChange = { }
+                    subtitle = "Включена всегда"
                 )
                 SettingsItem(
                     icon = Icons.Default.Language,
@@ -93,22 +87,56 @@ fun SettingsScreen() {
                 SettingsItem(
                     icon = Icons.Default.Info,
                     title = "О Greentooth",
-                    subtitle = "Версия 1.2.4",
-                    onClick = { }
+                    subtitle = "Версия 1.0.0",
+                    onClick = { showAboutDialog.value = true }
                 )
                 SettingsItem(
                     icon = Icons.Default.Share,
                     title = "Поделиться приложением",
                     onClick = { }
                 )
-                SettingsItem(
-                    icon = Icons.Default.Description,
-                    title = "Лицензии и благодарности",
-                    onClick = { }
-                )
             }
         }
     }
+    if (showAboutDialog.value) {
+        AboutDialog(onDismiss = { showAboutDialog.value = false })
+    }
+}
+
+@Composable
+private fun AboutDialog(onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                text = "Greentooth",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+        },
+        text = {
+            Column {
+                Text(
+                    text = "Современное приложение для Bluetooth-чата\n\n" +
+                            "• Быстрый обмен сообщениями\n" +
+                            "• Надёжное соединение\n" +
+                            "• Простой и понятный интерфейс\n\n" +
+                            "Версия: 1.0.0\n" +
+                            "Сделано для удобного общения",
+                    fontSize = 16.sp,
+                    lineHeight = 22.sp
+                )
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Закрыть", color = Color.White)
+            }
+        },
+        containerColor = Color(0xFF373741),
+        titleContentColor = Color.White,
+        textContentColor = Color.White.copy(alpha = 0.9f)
+    )
 }
 
 @Composable
