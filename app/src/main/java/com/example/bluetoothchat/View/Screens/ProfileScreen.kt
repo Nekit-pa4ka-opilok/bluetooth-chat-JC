@@ -2,35 +2,22 @@ package com.example.bluetoothchat.View.Screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bluetoothchat.R
 
 @Preview(showBackground = true)
 @Composable
@@ -46,7 +33,6 @@ fun ProfileScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            // Круглый аватар с обводкой
             Box(
                 modifier = Modifier
                     .size(180.dp)
@@ -59,12 +45,10 @@ fun ProfileScreen() {
                     text = "👤",
                     fontSize = 80.sp
                 )
-                // Можно заменить на Image позже
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Имя пользователя
             Text(
                 text = "Алексей Иванов",
                 fontSize = 26.sp,
@@ -72,9 +56,8 @@ fun ProfileScreen() {
                 color = Color.White
             )
 
-            // Статус
             Text(
-                text = "Онлайн",
+                text = stringResource(R.string.online),
                 fontSize = 16.sp,
                 color = Color(0xFF4CAF50),
                 modifier = Modifier.padding(top = 4.dp)
@@ -82,31 +65,24 @@ fun ProfileScreen() {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // Кнопка "Редактировать"
             Button(
-                onClick = { /* TODO: Открыть редактирование профиля */ },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF373741)
-                ),
+                onClick = { },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF373741)),
                 modifier = Modifier
                     .width(220.dp)
                     .height(52.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit",
+                    contentDescription = null,
                     modifier = Modifier.size(22.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Редактировать профиль",
-                    fontSize = 16.sp
-                )
+                Text(stringResource(R.string.edit_profile))
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Дополнительная информация (по желанию)
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(horizontal = 32.dp)

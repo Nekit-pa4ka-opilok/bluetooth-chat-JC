@@ -1,6 +1,7 @@
 package com.example.bluetoothchat
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -37,9 +38,15 @@ import androidx.compose.ui.unit.sp
 import com.example.bluetoothchat.Model.chats
 import com.example.bluetoothchat.View.Elements.ShowLabel
 import com.example.bluetoothchat.ui.theme.BluetoothChatTheme
+import com.example.bluetoothchat.utils.LocaleHelper
 
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.wrapContext(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
