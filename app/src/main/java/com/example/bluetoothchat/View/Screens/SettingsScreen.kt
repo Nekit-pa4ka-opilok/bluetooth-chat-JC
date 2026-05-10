@@ -68,7 +68,6 @@ fun SettingsScreen() {
     val bluetoothManager = remember { context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager }
     val bluetoothAdapter = remember { bluetoothManager.adapter }
 
-// Состояние Bluetooth
     var isBluetoothEnabled by remember { mutableStateOf(bluetoothAdapter?.isEnabled == true) }
     Surface(
         color = Color(0xFF6A6D7A),
@@ -107,13 +106,11 @@ fun SettingsScreen() {
                                 try {
                                     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                                     context.startActivity(intent)
-                                } catch (e: SecurityException) {
-                                    // Если нет разрешения - открываем настройки
+                                } catch (_: SecurityException) {
                                     context.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
                                 }
                             }
                         }
-                        // Если Bluetooth уже включен - ничего не делаем или можно показать сообщение
                     }
                 )
                 SettingsItem(
