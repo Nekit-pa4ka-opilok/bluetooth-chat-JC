@@ -21,12 +21,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.bluetoothchat.Model.chats
 import com.example.bluetoothchat.View.Elements.BottomBarPanel
+import com.example.bluetoothchat.View.Screens.ChatScreen
 import com.example.bluetoothchat.View.Screens.ChatsScreen
 import com.example.bluetoothchat.View.Screens.ProfileScreen
 import com.example.bluetoothchat.View.Screens.SettingsScreen
 import com.example.bluetoothchat.navigation.BottomScreen
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,16 +36,16 @@ fun AppRoot() {
 
     Scaffold(
         topBar = {
-            @OptIn(ExperimentalMaterial3Api::class)
             TopAppBar(
                 title = {
                     Text(
-                        "Greentooth", fontSize = 26.sp,
+                        "Greentooth",
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.Bold
                     )
                 },
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { /* TODO: Добавить новый чат */ }) {
                         Icon(
                             Icons.Filled.Add,
                             contentDescription = "add dialog",
@@ -70,9 +71,32 @@ fun AppRoot() {
             startDestination = BottomScreen.Chats.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(BottomScreen.Chats.route) { ChatsScreen() }
-            composable(BottomScreen.Settings.route) { SettingsScreen() }
-            composable(BottomScreen.Profile.route) { ProfileScreen() }
+            composable(BottomScreen.Chats.route) {
+                ChatsScreen(navController = navController)
+            }
+
+            composable(BottomScreen.Settings.route) {
+                SettingsScreen()
+            }
+
+            composable(BottomScreen.Profile.route) {
+                ProfileScreen()
+            }
+
+            // Новый маршрут для открытия чата
+            composable("chat/{chatId}") { backStackEntry ->
+                val chatId = backStackEntry.arguments?.getString("chatId") ?: ""
+
+                // Находим чат по ID
+                val selectedChat = chats.find { it.id == chatId } ?: chats.firstOrNull()
+
+                selectedChat?.let { chat ->
+                    ChatScreen(
+                        chat = chat,
+                        onBackClick = { navController.popBackStack() }
+                    )
+                }
+            }
         }
     }
 }
