@@ -2,7 +2,7 @@ package com.example.bluetoothchat.Model
 
 import com.example.bluetoothchat.R
 
-val chats = listOf(
+val chatss = listOf(
     ChatInfoData(
         avaResourse = R.drawable.ava_profile,
         textName = "Name",

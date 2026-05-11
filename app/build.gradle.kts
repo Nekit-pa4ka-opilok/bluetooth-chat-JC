@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.8")  // или новее
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.core.ktx)
