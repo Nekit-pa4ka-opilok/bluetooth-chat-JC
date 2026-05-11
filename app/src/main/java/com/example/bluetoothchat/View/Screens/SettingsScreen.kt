@@ -21,7 +21,6 @@ import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
@@ -42,13 +41,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import com.example.bluetoothchat.R
 import com.example.bluetoothchat.View.Elements.AboutDialog
 import com.example.bluetoothchat.View.Elements.SettingsItem
 import com.example.bluetoothchat.View.Elements.SettingsSection
 import com.example.bluetoothchat.utils.LocaleHelper
 import java.util.Locale
-import androidx.core.content.edit
 
 @Preview(showBackground = true)
 @Composable
@@ -92,7 +91,7 @@ fun SettingsScreen() {
                     icon = Icons.Default.Bluetooth,
                     title = stringResource(R.string.bluetooth),
                     subtitle = stringResource(R.string.bluetooth_status),
-                    showSwitch = false,  // Убираем переключатель
+                    showSwitch = false,
                     onClick = {
                         if (bluetoothAdapter == null) {
                             context.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
@@ -100,9 +99,7 @@ fun SettingsScreen() {
                         }
 
                         if (!isBluetoothEnabled) {
-                            // Включаем Bluetooth
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                // Android 12+ нужна проверка разрешения
                                 try {
                                     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                                     context.startActivity(intent)
@@ -149,11 +146,6 @@ fun SettingsScreen() {
                     title = stringResource(R.string.about_greentooth),
                     subtitle = stringResource(R.string.version),
                     onClick = { showAboutDialog.value = true }
-                )
-                SettingsItem(
-                    icon = Icons.Default.Share,
-                    title = stringResource(R.string.share_app),
-                    onClick = { }
                 )
             }
         }
